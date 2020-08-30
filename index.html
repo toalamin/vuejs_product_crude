@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>This is vue js tutorial</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+    </head>
+    <body>
+
+<div id="app" class="container ">
+  <div class="row col-md-6 col-md-offset-3 mt-5"><br><br>
+      <h3 class="text-center">Crude Product List</h3>
+      <hr>
+      <form @submit.prevent="addItem">
+          <input type="text" class="form-control" placeholder="Please type your name--" v-model="newItem"/>
+      </form>
+      {{ newItem }}
+    <ul class="list-group">
+        <li class="list-group-item" v-for="(item,index) in items">
+            <button class="btn btn-xs btn-danger" @click="removeItem(index)">Remove</button>
+            {{ item.name}} - <input type="text" class="form-control" v-model="item.price">
+        </li>
+    </ul>
+    <span>Total Amount: {{ total}}</span>
+  </div>
+</div>
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+   items: [
+       {name: 'rice',price: 100},
+       {name: 'tomato',price: 200},
+       {name: 'benjal',price: 300},
+       {name: 'banana',price: 400},
+       {name: 'water melon',price: 500}
+   ],
+   newItem: ''
+  },
+  computed:{
+    total(){
+        var total = 0
+        this.items.forEach(item => {
+               console.log(item);
+         total +=parseFloat(item.price)
+        });
+
+       
+       return total
+    }
+  },
+  methods:{
+      addItem(){
+        this.items.push({
+            name: this.newItem,
+            price:0.00
+          })
+      },
+      removeItem(index){
+          this.items.splice(index,1)
+      }
+  }   
+})
+
+
+
+</script>
+
+
+    </body>
+</html>
